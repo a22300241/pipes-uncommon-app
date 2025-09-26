@@ -21,7 +21,7 @@ export class BasicPageComponent {
   //  inStorage: new FormControl(0),
   //})
   isValidField(fildName:string):boolean|null{
-    return !!this.myForm.controls[fildName].errors
+    return (this.myForm.controls[fildName].errors && this.myForm.controls[fildName].touched)
   }
   getFieldError(fildName:string):string|null{
     if(!this.myForm.controls[fildName]) return null;
@@ -37,5 +37,13 @@ export class BasicPageComponent {
       }
     }
     return null;
+  }
+  onSave(){
+    if(this.myForm.invalid){
+      this.myForm.markAllAsTouched();
+      return;
+    }
+    console.log(this.myForm.value);
+    this.myForm.reset({price:0, inStorage:0});
   }
  }
