@@ -1,9 +1,13 @@
 import { FormArray, FormGroup, ValidationErrors } from "@angular/forms";
 
 export class FormUtils {
+   static namePattern = '([a-zA-Z]+) ([a-zA-Z]+)';
+  static emailPattern = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$';
+  static notOnlySpacesPattern = '^[a-zA-Z0-9]+$';
   static getTextErrors(errors:ValidationErrors)
   {
     for(const key of Object.keys(errors)){
+      console.log(errors);
       switch(key){
         case 'required':
           return 'Este campo es obligatorio';
@@ -13,6 +17,13 @@ export class FormUtils {
           return `El valor mínimo es ${errors['min'].min}.`;
         case'email':
           return 'El valor debe de ser un email válido';
+        case 'pattern':
+          if(errors['pattern'].requiredPattern==FormUtils.namePattern){
+            return 'El correo electronico no es valido';
+          }
+        return 'Error en patron contra expresion regular';
+        default:
+          return `Error desconocido ${key}`;
       }
     }
     return null;
