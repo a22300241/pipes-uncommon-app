@@ -1,4 +1,4 @@
-import { FormArray, FormGroup, ValidationErrors } from "@angular/forms";
+import { AbstractControl, FormArray, FormGroup, ValidationErrors } from "@angular/forms";
 
 export class FormUtils {
    static namePattern = '([a-zA-Z]+) ([a-zA-Z]+)';
@@ -7,7 +7,6 @@ export class FormUtils {
   static getTextErrors(errors:ValidationErrors)
   {
     for(const key of Object.keys(errors)){
-      console.log(errors);
       switch(key){
         case 'required':
           return 'Este campo es obligatorio';
@@ -45,5 +44,12 @@ export class FormUtils {
     if(formArray.controls.length==0) return null;
     const errors=formArray.controls[index].errors ?? {};
     return this.getTextErrors(errors);
+  }
+  static idFieldOneEqualsFieldTwo(field1:string, field2:string){
+    return(formGroup:AbstractControl)=>{
+      const field1Value=formGroup.get(field1)?.value;
+      const field2Value=formGroup.get(field2)?.value;
+      return field1Value==field2Value ? null:{passwordsNotEqual:true};
+    };
   }
 }

@@ -101,6 +101,10 @@
 
             <div class="row">
                 <div class="col">
+                  @if (formUtils.idFieldOneEqualsFieldTwo('password','password2')(myForm)) {
+                  <span class="text-danger">
+                    Las contraseñas no son iguales
+                  </span>}
                     <button class="btn btn-primary float-end"
                             type="submit">
                         Crear
@@ -117,8 +121,10 @@
 <h2>Form Valid: {{myForm.valid}}</h2>
 <h2>Form Status: {{myForm.status}}</h2>
 <h2>Form Pending: {{myForm.pending}}</h2>
+
 <h2>Form errors</h2>
-<pre>{{myForm.errors| json }}</pre>
+<pre>{{ myForm.errors|json}}</pre>
+
 <h2>Value</h2>
 <pre>{{myForm.value| json }}</pre>
 
@@ -130,7 +136,6 @@
 
 <h5>Username</h5>
 <pre>{{ myForm.controls['username'].errors| json }}</pre>
-
 
 <h5>Password</h5>
 <pre>{{ myForm.controls['password'].errors| json }}</pre>
