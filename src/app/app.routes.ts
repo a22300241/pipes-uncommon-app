@@ -1,8 +1,15 @@
 import { PseudoClass } from './../../node_modules/lightningcss/node/ast.d';
 import { Routes } from '@angular/router';
+import { HomePageComponent } from './pages/home-page/home-page.component';
+import { AboutPageComponent } from './pages/about-page/about-page.component';
+import { ContactPageComponent } from './pages/contact-page/contact-page.component';
 import { CustomPageComponent } from './pages/custom-page/custom-page/custom-page.component';
 
 export const routes: Routes = [
+  {path:'',component:HomePageComponent},
+  {path:'about',component:AboutPageComponent},
+  {path:'contact',component:ContactPageComponent},
+  {path:'**',redirectTo:''},
   {
     path:'reactive',
     loadChildren: () => import('./reactive/reactive.routes').then((m) => m.reactiveRoutes)
