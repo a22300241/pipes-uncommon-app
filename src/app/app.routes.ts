@@ -6,6 +6,8 @@ import { ContactPageComponent } from './pages/contact-page/contact-page.componen
 import { CustomPageComponent } from './pages/custom-page/custom-page/custom-page.component';
 
 export const routes: Routes = [
+  {path:'',loadChildren:()=>import('./store-front/store-front.routes')},
+
   {path:'',component:HomePageComponent},
   {path:'about',component:AboutPageComponent},
   {path:'contact',component:ContactPageComponent},
