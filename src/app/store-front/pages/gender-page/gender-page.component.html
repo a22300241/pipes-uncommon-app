@@ -8,4 +8,8 @@
     <p>No hay productos</p>
   }
 >
+<app-pagination [pages]="productsResource.value()?.pages ?? 0"
+[currentPage]="paginationService.currentPage()"
+/>
+
 
