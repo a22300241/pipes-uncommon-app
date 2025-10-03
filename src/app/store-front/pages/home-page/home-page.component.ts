@@ -26,8 +26,8 @@ export class HomePageComponent {
   params: () => ({  }),
   loader: async({ params }) => {
     return this.productsService.getProducts({
-      limit: 5,
-      gender: 'women'
+      limit: 56,
+
     });
   }
   });
