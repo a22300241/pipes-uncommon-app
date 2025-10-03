@@ -1,8 +1,47 @@
-import { Component } from '@angular/core';
+import { Component, inject, resource } from '@angular/core';
+import { ProductCardComponent } from '../../../products/components/product-card/product-card.component';
+import { ProductsService } from '@products/services/products.service';
+import { rxResource } from  '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-home-page',
-  imports: [],
+  imports: [ProductCardComponent],
   templateUrl: './home-page.component.html',
 })
-export class HomePageComponent { }
+export class HomePageComponent {
+  productsService=inject(ProductsService);
+  /*
+  productsResource = rxResource({
+  request: () => ({ limit: 1, gender: 'women' }),
+  loader: ({ request }) => {
+    return this.productsService.getProducts(request);
+  }
+});
+ */
+
+
+
+
+  productsResource = resource({
+  params: () => ({  }),
+  loader: async({ params }) => {
+    return this.productsService.getProducts({
+      limit: 5,
+      gender: 'women'
+    });
+  }
+  });
+
+
+
+
+
+/* productsResourse = rxResource({
+  params:()=>({}),
+  loader:({params})=>{
+    return this.productsService.getProducts();
+  },
+});
+ */
+
+}
