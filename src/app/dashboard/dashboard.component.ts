@@ -5,4 +5,4 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   imports: [],
   templateUrl: './dashboard.component.html',
 })
-export class DashboardComponent { }
+export default class DashboardComponent { }
