@@ -1,47 +1,27 @@
 import { Component, inject, resource } from '@angular/core';
 import { ProductCardComponent } from '../../../products/components/product-card/product-card.component';
 import { ProductsService } from '@products/services/products.service';
-import { rxResource } from  '@angular/core/rxjs-interop';
+import { PaginationComponent } from "@shared/components/pagination/pagination.component";
+import { ActivatedRoute } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { firstValueFrom, map } from 'rxjs';
+import { PaginationService } from '@shared/components/pagination/pagination.service';
 
 @Component({
   selector: 'app-home-page',
-  imports: [ProductCardComponent],
+  imports: [ProductCardComponent, PaginationComponent],
   templateUrl: './home-page.component.html',
 })
 export class HomePageComponent {
   productsService=inject(ProductsService);
-  /*
-  productsResource = rxResource({
-  request: () => ({ limit: 1, gender: 'women' }),
-  loader: ({ request }) => {
-    return this.productsService.getProducts(request);
-  }
-});
- */
-
-
-
-
+  paginationService=inject(PaginationService)
   productsResource = resource({
-  params: () => ({  }),
+  params: () => ({ page:this.paginationService.currentPage()-1 }),
   loader: async({ params }) => {
-    return this.productsService.getProducts({
-      limit: 56,
-
-    });
+    return await firstValueFrom( this.productsService.getProducts({
+      offset: params.page * 9,
+    }),
+  )
   }
   });
-
-
-
-
-
-/* productsResourse = rxResource({
-  params:()=>({}),
-  loader:({params})=>{
-    return this.productsService.getProducts();
-  },
-});
- */
-
 }

@@ -2,7 +2,9 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChang
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
+import { loggingInterceptor } from '@shared/interceptors/logging.interceptor';
+import { authInterceptor } from '@auth/interceptors/auth.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -14,5 +16,12 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(withFetch()),
 
+    provideHttpClient(
+      withFetch(),
+      withInterceptors([
+        /* loggingInterceptor */
+        authInterceptor
+      ])
+    ),
   ]
 };

@@ -21,7 +21,17 @@
       <li><a routerLink="/gender/kid" class="btn btn-ghost" routerLinkActive="text-secondary">kids</a></li>
     </ul>
   </div>
-  <div class="navbar-end">
-    <a class="btn">Button</a>
+  <div class="navbar-end gap-4">
+    @if (authService.authStatus()=='authenticated') {
+      <button class="btn btn-ghost">{{authService.user()?.fullName}}</button>
+      <button class="btn btn-sm btn-error" (click)="authService.logout()">Salir</button>
+    }
+    @else if (authService.authStatus()=='not-authenticated') {
+      <a routerLink="/auth/login" class="btn btn-primary">Login</a>
+    }
+    @else if(authService.authStatus()=='checking') {
+      <button class="btn btn-ghost">estado de login</button>
+      <button class="btn btn-sm btn-error" (click)="authService.logout()">Salir e iniciar secion nuevamente</button>
+    }
   </div>
 </div>
