@@ -24,7 +24,6 @@ export class ProductsService {
   return this.http.get<ProductsResponse>(`${baseUrl}/products`, {
       params: { limit, offset, gender }
     }).pipe(
-    tap((resp) => console.log(resp)),
     tap((resp)=> this.productsCache.set(key,resp))
   )
 
