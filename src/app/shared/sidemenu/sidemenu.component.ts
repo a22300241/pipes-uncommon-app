@@ -1,14 +1,15 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { routes } from '../../app.routes';
+import { RouterLink, RouterLinkActive } from "@angular/router";
 
 @Component({
   selector: 'app-sidemenu',
-  imports: [],
-  template: `<p>sidemenu works!</p>`,
-  styles: `
-    :host {
-      display: block;
-    }
-  `,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [RouterLink, RouterLinkActive],
+  templateUrl: './sidemenu.component.html',
 })
-export class SidemenuComponent { }
+export class SidemenuComponent {
+  public menuItems=routes.map(route=>route.children??[])
+  .flat().filter(route=>route&&route.path).filter(route=>!route.path?.includes(':'))
+
+
+}
