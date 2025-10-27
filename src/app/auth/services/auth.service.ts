@@ -23,19 +23,18 @@ export class AuthService {
   const token = localStorage.getItem('token');
 
   if (token) {
-    // 🔥 Ejecuta checkStatus automáticamente
     this.checkStatus().subscribe({
       next: (isValid) => {
         if (isValid) {
           this._authStatus.set('authenticated');
-          console.log('✅ Token válido, usuario autenticado');
+          console.log('Token válido, usuario autenticado');
         } else {
           this.logout();
-          console.log('❌ Token inválido, usuario no autenticado');
+          console.log('Token inválido, usuario no autenticado');
         }
       },
       error: (err) => {
-        console.error('❌ Error en checkStatus inicial:', err);
+        console.error('Error en checkStatus inicial:', err);
         this.logout();
       }
     });
@@ -116,10 +115,11 @@ export class AuthService {
       this.logout();
       return of(false);
     }
+    console.log(token);
     return this.http.get<AuthResponse>(`${baseUrl}/auth/check-status`,{
-     /*  headers:{
+       headers:{
         Authorization:`Bearer${token}`,
-      } */
+      }
     }).pipe(
       map(resp=>this.handleAuthSuccess(resp)),
       catchError((error:any)=>this.handleAuthError(error))
